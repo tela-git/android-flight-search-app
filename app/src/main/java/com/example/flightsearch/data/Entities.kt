@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey
 data class Airport(
     @PrimaryKey(autoGenerate = true)
     val id: Int,
-    val iataCode: Int,
+    val iataCode: String,
     val name: String,
     val passengers: Int
 )
@@ -16,14 +16,14 @@ data class Airport(
 data class Route(
     @PrimaryKey(autoGenerate = true)
     val id: Int,
-    val departCode: Int,
-    val arriveCode: Int
+    val departCode: String,
+    val arriveCode: String
 )
 
 @Entity(tableName = "favorites")
 data class Favorite(
     @PrimaryKey(autoGenerate = true)
     val id: Int,
-    val departCode: Int,
-    val arriveCode: Int
+    val departCode: String,
+    val arriveCode: String
 )

@@ -14,7 +14,7 @@ import com.example.flightsearch.ui.FlightSearchViewModel
 
 
 @Composable
-fun flightSearchApp(
+fun FlightSearchApp(
     modifier: Modifier
 ) {
     val appViewModel: FlightSearchViewModel= hiltViewModel()

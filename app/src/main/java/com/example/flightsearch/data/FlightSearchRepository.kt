@@ -1,6 +1,7 @@
 package com.example.flightsearch.data
 
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
 
 
 interface FlightSearchRepository {
@@ -12,7 +13,8 @@ interface FlightSearchRepository {
     fun getFavoriteRoutesList(): Flow<List<Favorite>>
 }
 
-class FlightSearchRepoImpl(
+
+class FlightSearchRepoImpl @Inject constructor(
     private val airportDao: AirportDao,
     private val routeDao: RoutesDao,
     private val favoriteDao: FavoriteDao

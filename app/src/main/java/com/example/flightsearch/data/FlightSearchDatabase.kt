@@ -8,7 +8,7 @@ import androidx.room.RoomDatabase
 @Database(entities = [Airport::class, Route::class, Favorite::class],version = 1, exportSchema = false )
 abstract class FlightSearchDatabase: RoomDatabase() {
     abstract fun getAirportDao(): AirportDao
-    abstract fun getRoutesDao(): RoutesDao
+    abstract fun getRoutellsDao(): RoutesDao
     abstract fun getFavoriteDao(): FavoriteDao
 
     companion object {

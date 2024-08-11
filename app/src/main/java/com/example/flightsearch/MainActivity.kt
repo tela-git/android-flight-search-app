@@ -21,6 +21,7 @@ class MainActivity : ComponentActivity() {
                 flightSearchApp(
                     modifier = Modifier
                 )
+
             }
         }
     }

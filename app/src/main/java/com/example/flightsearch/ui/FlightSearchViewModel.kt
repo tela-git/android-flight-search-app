@@ -21,6 +21,16 @@ class FlightSearchViewModel @Inject constructor(): ViewModel() {
 
 }
 
-data class FlightSearchUiState(
-    val searchString: String = ""
+
+data class Airport(
+    val id: Int,
+    val iataCode: String,
+    val name: String,
+    val passengers: Int
+)
+
+data class Route(
+    val id: Int,
+    val departCode: String,
+    val arriveCode: String
 )

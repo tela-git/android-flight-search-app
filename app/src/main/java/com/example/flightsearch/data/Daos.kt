@@ -13,7 +13,7 @@ interface AirportDao {
 
 @Dao
 interface RoutesDao {
-    @Query("SELECT * FROM routes WHERE departCode = departCode")
+    @Query("SELECT * FROM routes WHERE departCode = :deptCode")
     fun getRoutesList(deptCode: String): Flow<List<Route>>
 }
 

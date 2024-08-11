@@ -23,9 +23,6 @@ class FlightSearchViewModel @Inject constructor(
         flightSearchRepo.getAirport(searchQuery = changedString)
     }
 
-    init {
-
-    }
 }
 
 

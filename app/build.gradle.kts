@@ -68,15 +68,17 @@ dependencies {
     // Room DB
     implementation(libs.androidx.room.runtime)
     annotationProcessor(libs.androidx.room.compiler)
+    implementation("androidx.room:room-ktx:2.6.1")
+    kapt("androidx.room:room-compiler:2.6.1")
 
     //Hilt
     implementation("com.google.dagger:hilt-android:2.49")
     kapt("com.google.dagger:hilt-android-compiler:2.49")
-
+    implementation(libs.androidx.hilt.navigation.compose)
     // When using Kotlin.
     kapt("androidx.hilt:hilt-compiler:1.2.0")
 
-    implementation(libs.androidx.hilt.navigation.compose)
+
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

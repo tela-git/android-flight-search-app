@@ -1,12 +1,15 @@
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -28,7 +31,10 @@ import com.example.flightsearch.R
 fun HomeScreen(
     modifier: Modifier,
     searchQuery: String,
-    onSearchValueChange: (String)->Unit
+    onSearchValueChange: (String)->Unit,
+    response: String,
+    error: String?,
+    isLoading: Boolean
 ) {
     Scaffold(
         topBar = {
@@ -48,6 +54,17 @@ fun HomeScreen(
                 onSearchValueChange = onSearchValueChange,
                 searchQuery = searchQuery
             )
+            CircularProgressIndicator()
+
+            Text(
+                text = response
+            )
+
+            if(response.isEmpty()){
+                Text(
+                    text = "check"
+                )
+            }
 
         }
     }
@@ -110,6 +127,9 @@ fun HomeScreenPreview() {
     HomeScreen(
         modifier = Modifier.fillMaxSize(),
         searchQuery = "",
-        onSearchValueChange = { }
+        onSearchValueChange = { },
+        response = "",
+        error = "",
+        isLoading = true
     )
 }

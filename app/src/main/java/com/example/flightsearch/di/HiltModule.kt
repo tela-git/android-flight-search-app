@@ -22,7 +22,7 @@ object HiltModule {
     ): FlightSearchRepository {
         return FlightSearchRepoImpl(
             FlightSearchDatabase.getDatabase(context).getAirportDao(),
-            FlightSearchDatabase.getDatabase(context).getRoutellsDao(),
+            FlightSearchDatabase.getDatabase(context).getRoutesDao(),
             FlightSearchDatabase.getDatabase(context).getFavoriteDao()
         )
     }

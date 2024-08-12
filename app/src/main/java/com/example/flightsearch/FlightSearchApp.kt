@@ -23,6 +23,9 @@ fun FlightSearchApp(
         modifier = modifier
             .fillMaxSize(),
         searchQuery = appUiState.searchString,
-        onSearchValueChange = { appViewModel.updateSearchString(it) }
+        onSearchValueChange = { appViewModel.updateSearchString(it) },
+        response = appUiState.response,
+        error = appUiState.error,
+        isLoading = appUiState.isLoading
     )
 }

@@ -1,6 +1,7 @@
 package com.example.flightsearch.data
 
 import android.content.Context
+import android.provider.CalendarContract.Instances
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
@@ -8,18 +9,22 @@ import androidx.room.RoomDatabase
 @Database(entities = [Airport::class, Route::class, Favorite::class],version = 1, exportSchema = false )
 abstract class FlightSearchDatabase: RoomDatabase() {
     abstract fun getAirportDao(): AirportDao
-    abstract fun getRoutellsDao(): RoutesDao
+    abstract fun getRoutesDao(): RoutesDao
     abstract fun getFavoriteDao(): FavoriteDao
 
     companion object {
         @Volatile
-        private var instance: FlightSearchDatabase? = null
+        private var INSTANCE: FlightSearchDatabase? = null
 
         fun getDatabase(context: Context): FlightSearchDatabase {
-            return instance ?: synchronized(this) {
-                Room.databaseBuilder(context, FlightSearchDatabase::class.java,"flightSearch_db" )
+            return INSTANCE ?: synchronized(this) {
+                val instance =  Room.databaseBuilder(context, FlightSearchDatabase::class.java,"flightSearch_db" )
+                    .createFromAsset("database/flight_search.db")
                     .build()
-                    .also { instance = it }
+                    .also { INSTANCE = it }
+                INSTANCE = instance
+
+                instance
             }
         }
     }

@@ -56,13 +56,17 @@ fun HomeScreen(
                 onSearchValueChange = onSearchValueChange,
                 searchQuery = searchQuery
             )
-            if(response.isNotEmpty()){
+            if(searchQuery.isEmpty()) {
+                Text(
+                    "These are your favorite routes"
+                )
+            } else if(response.isNotEmpty()) {
                 AirportSearchDropDown(
                     airportSearchList = response
                 )
-            } else {
+            } else  {
                 Text(
-                    text = "Try search your favorite airports..."
+                    text = "No airport found..."
                 )
             }
 

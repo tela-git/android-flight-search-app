@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardColors
@@ -30,21 +31,26 @@ fun AirportSearchDropDown(
     airportSearchList: List<Airport>,
     modifier: Modifier = Modifier
 ) {
-        Card(
-            modifier = modifier
-                .fillMaxWidth()
-                .padding(horizontal = 4.dp, ),
-            shape = RoundedCornerShape(0.dp,0.dp,20.dp,20.dp),
-            colors = CardDefaults.cardColors(
-                containerColor = Color.Transparent
-            )
-        ) {
-            airportSearchList.forEach {
-                AirportCard(
-                    airportInSearch = it
+    LazyColumn {
+        item {
+            Card(
+                modifier = modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 4.dp),
+                shape = RoundedCornerShape(0.dp, 0.dp, 20.dp, 20.dp),
+                colors = CardDefaults.cardColors(
+                    containerColor = Color.Transparent
                 )
+            ) {
+                airportSearchList.forEach {
+                    AirportCard(
+                        airportInSearch = it
+                    )
+                }
             }
         }
+
+    }
 
 }
 

@@ -28,12 +28,14 @@ class FlightSearchViewModel @Inject constructor(
         }
         viewModelScope.launch {
             try {
-                flightSearchRepo.getAirport(changedString).collect { airports ->
-                    _uiState.update { state ->
-                        state.copy(
-                            response = airports,
-                            isLoading = false
-                        )
+                if(changedString.isNotEmpty()) {
+                    flightSearchRepo.getAirport(changedString).collect { airports ->
+                        _uiState.update { state ->
+                            state.copy(
+                                response = airports,
+                                isLoading = false
+                            )
+                        }
                     }
                 }
             } catch (e: Exception) {

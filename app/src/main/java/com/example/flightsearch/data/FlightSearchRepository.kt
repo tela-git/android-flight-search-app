@@ -11,6 +11,8 @@ interface FlightSearchRepository {
     fun getRoutesList(deptCode: String): Flow<List<Route>>
 
     fun getFavoriteRoutesList(): Flow<List<Favorite>>
+
+    suspend fun addToFavorite(route: Route)
 }
 
 
@@ -24,4 +26,6 @@ class FlightSearchRepoImpl @Inject constructor(
     override fun getRoutesList(deptCode: String): Flow<List<Route>> = routeDao.getRoutesList(deptCode)
 
     override fun getFavoriteRoutesList(): Flow<List<Favorite>> = favoriteDao.getFavoriteRoutesList()
+
+    override suspend fun addToFavorite(route: Route) = favoriteDao.addToFavorites(route)
 }

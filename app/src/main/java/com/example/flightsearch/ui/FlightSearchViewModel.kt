@@ -31,7 +31,7 @@ class FlightSearchViewModel @Inject constructor(
                 flightSearchRepo.getAirport(changedString).collect { airports ->
                     _uiState.update { state ->
                         state.copy(
-                            response = airports.map { it.name }.joinToString(","),
+                            response = airports,
                             isLoading = false
                         )
                     }
@@ -47,7 +47,6 @@ class FlightSearchViewModel @Inject constructor(
         }
     }
 }
-
 
 data class Airport(
     val id: Int,

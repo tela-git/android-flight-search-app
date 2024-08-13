@@ -26,13 +26,15 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.flightsearch.R
+import com.example.flightsearch.data.Airport
+import com.example.flightsearch.ui.AirportSearchDropDown
 
 @Composable
 fun HomeScreen(
     modifier: Modifier,
     searchQuery: String,
     onSearchValueChange: (String)->Unit,
-    response: String,
+    response: List<Airport>,
     error: String?,
     isLoading: Boolean
 ) {
@@ -54,15 +56,13 @@ fun HomeScreen(
                 onSearchValueChange = onSearchValueChange,
                 searchQuery = searchQuery
             )
-            CircularProgressIndicator()
-
-            Text(
-                text = response
-            )
-
-            if(response.isEmpty()){
+            if(response.isNotEmpty()){
+                AirportSearchDropDown(
+                    airportSearchList = response
+                )
+            } else {
                 Text(
-                    text = "check"
+                    text = "Try search your favorite airports..."
                 )
             }
 
@@ -128,7 +128,20 @@ fun HomeScreenPreview() {
         modifier = Modifier.fillMaxSize(),
         searchQuery = "",
         onSearchValueChange = { },
-        response = "",
+        response = listOf(
+            Airport(
+                id = 0,
+                name = "Rajiv Gandhi International Airport",
+                iataCode = "HYD",
+                passengers = 0
+            ),
+            Airport(
+                id = 1,
+                name = "Chhatrapati Shivaji Maharaj International Airport",
+                iataCode = "BOM",
+                passengers = 13
+            )
+        ),
         error = "",
         isLoading = true
     )

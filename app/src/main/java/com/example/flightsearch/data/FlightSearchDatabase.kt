@@ -1,10 +1,11 @@
 package com.example.flightsearch.data
 
 import android.content.Context
-import android.provider.CalendarContract.Instances
+import android.util.Log
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import javax.inject.Singleton
 
 @Database(entities = [Airport::class, Route::class, Favorite::class],version = 1, exportSchema = false )
 abstract class FlightSearchDatabase: RoomDatabase() {
@@ -14,14 +15,16 @@ abstract class FlightSearchDatabase: RoomDatabase() {
 
     companion object {
         @Volatile
+        @Singleton
         private var INSTANCE: FlightSearchDatabase? = null
 
         fun getDatabase(context: Context): FlightSearchDatabase {
+            Log.d( "db", "getDatabase function called in companion object in Db class")
             return INSTANCE ?: synchronized(this) {
-                val instance =  Room.databaseBuilder(context, FlightSearchDatabase::class.java,"flightSearch_db" )
-                    .createFromAsset("database/flight_search.db")
+                Log.d("db","return instance is excecuted")
+                val instance =  Room.databaseBuilder(context, FlightSearchDatabase::class.java,"flight_search_db" )
                     .build()
-                    .also { INSTANCE = it }
+                Log.d("db",".build is called")
                 INSTANCE = instance
 
                 instance

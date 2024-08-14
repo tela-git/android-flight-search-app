@@ -1,7 +1,7 @@
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import com.example.flightsearch.data.Airport
-import com.example.flightsearch.ui.airportcomponent.AirportSearchDropDown
+import com.example.flightsearch.ui.appuicomponents.AirportSearchDropDown
 
 
 

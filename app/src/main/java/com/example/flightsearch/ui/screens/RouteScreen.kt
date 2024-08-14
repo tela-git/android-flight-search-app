@@ -1,4 +1,4 @@
-package com.example.flightsearch.screens
+package com.example.flightsearch.ui.screens
 
 import androidx.compose.runtime.Composable
 

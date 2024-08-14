@@ -8,8 +8,7 @@ import com.example.flightsearch.data.Route
 data class FlightSearchUiState(
     val searchString: String = "",
     val response: List<Airport> = emptyList(),
-        val isLoading: Boolean = false,
-        val error: String? = null
-
-
+    val isLoading: Boolean = false,
+    val error: String? = null,
+    val isSearchActive: Boolean = false
 )

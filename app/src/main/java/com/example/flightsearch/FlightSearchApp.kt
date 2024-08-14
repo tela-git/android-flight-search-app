@@ -26,6 +26,7 @@ fun FlightSearchApp(
         onSearchValueChange = { appViewModel.updateSearchString(it) },
         response = appUiState.response,
         error = appUiState.error,
-        isLoading = appUiState.isLoading
+        isLoading = appUiState.isLoading,
+        isSearchActive = appUiState.isSearchActive
     )
 }

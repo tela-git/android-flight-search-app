@@ -24,6 +24,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.flightsearch.R
 import com.example.flightsearch.data.Airport
+import com.example.flightsearch.data.Route
+import com.example.flightsearch.screens.RouteScreen
 import com.example.flightsearch.ui.airportcomponent.AirportSearchDropDown
 
 @Composable
@@ -33,7 +35,8 @@ fun HomeScreen(
     onSearchValueChange: (String)->Unit,
     response: List<Airport>,
     error: String?,
-    isLoading: Boolean
+    isLoading: Boolean,
+    isSearchActive: Boolean
 ) {
     Scaffold(
         topBar = {
@@ -53,18 +56,16 @@ fun HomeScreen(
                 onSearchValueChange = onSearchValueChange,
                 searchQuery = searchQuery
             )
-            if(searchQuery.isEmpty()) {
-                Text(
-                    "These are your favorite routes"
-                )
-            } else if(response.isNotEmpty()) {
-                AirportSearchDropDown(
-                    airportSearchList = response
-                )
-            } else  {
-                Text(
-                    text = "No airport found..."
-                )
+
+            when(isSearchActive) {
+               true-> SearchScreen(
+                   searchQuery = searchQuery,
+                   response = response
+               )
+
+                false -> {
+                    RouteScreen()
+                }
             }
 
         }
@@ -144,6 +145,7 @@ fun HomeScreenPreview() {
             )
         ),
         error = "",
-        isLoading = true
+        isLoading = true,
+        isSearchActive = true
     )
 }

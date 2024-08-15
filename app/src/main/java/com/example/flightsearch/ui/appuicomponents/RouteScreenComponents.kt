@@ -18,15 +18,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.flightsearch.R
 import com.example.flightsearch.data.Route
-
+import com.example.flightsearch.ui.RouteDetails
 
 
 @Composable
 fun RouteCard(
     modifier: Modifier = Modifier,
-    route: Route,
-    deptAirport: String,
-    destAirport: String,
+    route: RouteDetails,
     isFav: Boolean
 ) {
     Card(
@@ -54,12 +52,12 @@ fun RouteCard(
                             .padding(vertical = 4.dp)
                     ) {
                         Text(
-                            text = route.departCode,
+                            text = route.departAirportCode,
                             modifier = Modifier.padding(horizontal = 10.dp),
                             fontWeight = FontWeight.Bold
                         )
                         Text(
-                            text = deptAirport
+                            text = route.departAirport
                         )
                     }
                 }
@@ -76,12 +74,12 @@ fun RouteCard(
                         modifier = Modifier.padding(4.dp)
                     ) {
                         Text(
-                            text = route.arriveCode,
+                            text = route.arriveAirportCode,
                             modifier = Modifier.padding(horizontal = 10.dp),
                             fontWeight = FontWeight.Bold
                         )
                         Text(
-                            text = destAirport
+                            text = route.arriveAirport
                         )
                     }
                 }
@@ -117,13 +115,13 @@ fun RouteCard(
 fun RouteCardPreview() {
     RouteCard(
         modifier = Modifier.fillMaxWidth(),
-        route = Route(
+        route = RouteDetails(
             id = 1,
-            departCode = "HYD",
-            arriveCode = "DEL"
+            departAirport = "Rajiv Gandhi International Airport",
+            arriveAirport = "Kempegowda International Airport",
+            departAirportCode = "HYD",
+            arriveAirportCode = "KMP"
         ),
-        deptAirport = "Rajiv Gandhi International Airport",
-        destAirport = "Kempegowda International Airport",
         isFav = false
     )
 }

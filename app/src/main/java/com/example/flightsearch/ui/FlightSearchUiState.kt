@@ -1,6 +1,9 @@
 package com.example.flightsearch.ui
 
 import android.hardware.camera2.CameraExtensionSession.StillCaptureLatency
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsFocusedAsState
+import androidx.compose.runtime.State
 import com.example.flightsearch.data.Airport
 import com.example.flightsearch.data.Route
 
@@ -10,5 +13,5 @@ data class FlightSearchUiState(
     val response: List<Airport> = emptyList(),
     val isLoading: Boolean = false,
     val error: String? = null,
-    val isSearchActive: Boolean = false
+    val interactionSource: MutableInteractionSource = MutableInteractionSource(),
 )

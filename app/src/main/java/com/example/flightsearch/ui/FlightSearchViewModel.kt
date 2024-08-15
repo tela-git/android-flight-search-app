@@ -50,16 +50,19 @@ class FlightSearchViewModel @Inject constructor(
     }
 }
 
-data class Airport(
+data class AirportDetails(
     val id: Int,
     val iataCode: String,
     val name: String,
     val passengers: Int
 )
 
-data class Route(
+data class RouteDetails(
     val id: Int,
-    val departCode: String,
-    val arriveCode: String
+    val departAirport: String,
+    val arriveAirport: String,
+    val departAirportCode: String,
+    val arriveAirportCode: String
 )
+
 

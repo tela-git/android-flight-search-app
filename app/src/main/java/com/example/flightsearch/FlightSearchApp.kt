@@ -8,7 +8,6 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.flightsearch.ui.FlightSearchUiState
 import com.example.flightsearch.ui.FlightSearchViewModel
 
@@ -27,6 +26,6 @@ fun FlightSearchApp(
         response = appUiState.response,
         error = appUiState.error,
         isLoading = appUiState.isLoading,
-        isSearchActive = appUiState.isSearchActive
+        interactionSource = appUiState.interactionSource
     )
 }

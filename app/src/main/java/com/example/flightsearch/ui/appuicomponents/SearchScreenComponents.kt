@@ -20,7 +20,8 @@ import com.example.flightsearch.data.Airport
 @Composable
 fun AirportCard(
     modifier: Modifier = Modifier,
-    airportInSearch: Airport
+    airportInSearch: Airport,
+    onAirportCardClicked:(Airport) -> Unit
 ) {
     val nm = airportInSearch.name.length
     Card(
@@ -33,7 +34,10 @@ fun AirportCard(
             contentColor = MaterialTheme.colorScheme.secondary,
             disabledContainerColor = MaterialTheme.colorScheme.outline,
             disabledContentColor = MaterialTheme.colorScheme.outline
-        )
+        ),
+        onClick = {
+            onAirportCardClicked(airportInSearch)
+        }
     ) {
         if(nm <= 35){
             Text(

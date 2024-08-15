@@ -1,6 +1,8 @@
 package com.example.flightsearch.ui.appuicomponents
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.interaction.InteractionSource
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -41,12 +43,13 @@ import com.example.flightsearch.data.Route
 fun FlightSearchBar(
     modifier: Modifier,
     onSearchValueChange: (String) -> Unit,
-    searchQuery: String
+    searchQuery: String,
+    interactionSource: MutableInteractionSource
 ) {
 
     OutlinedTextField(
         value = searchQuery,
-        onValueChange = onSearchValueChange,
+        onValueChange = { onSearchValueChange(it) },
         modifier = modifier
             .fillMaxWidth()
             .padding(horizontal = dimensionResource(R.dimen.small)),
@@ -63,7 +66,7 @@ fun FlightSearchBar(
             )
         },
         singleLine = true,
-
+        interactionSource = interactionSource
         )
 }
 
@@ -72,7 +75,8 @@ fun FlightSearchBar(
 @Composable
 fun AirportSearchDropDown(
     airportSearchList: List<Airport>,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onAirportCardClicked: (Airport)-> Unit
 ) {
     LazyColumn {
         item {
@@ -87,7 +91,8 @@ fun AirportSearchDropDown(
             ) {
                 airportSearchList.forEach {
                     AirportCard(
-                        airportInSearch = it
+                        airportInSearch = it,
+                        onAirportCardClicked = onAirportCardClicked
                     )
                 }
             }

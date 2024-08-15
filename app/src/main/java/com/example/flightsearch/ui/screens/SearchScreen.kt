@@ -8,7 +8,8 @@ import com.example.flightsearch.ui.appuicomponents.AirportSearchDropDown
 @Composable
 fun SearchScreen(
     searchQuery: String,
-    response: List<Airport>
+    response: List<Airport>,
+    onAirportCardClicked: (Airport)-> Unit
 ) {
     if (searchQuery.isEmpty()) {
         Text(
@@ -16,7 +17,8 @@ fun SearchScreen(
         )
     } else if (response.isNotEmpty()) {
         AirportSearchDropDown(
-            airportSearchList = response
+            airportSearchList = response,
+            onAirportCardClicked = onAirportCardClicked
         )
     } else {
         Text(

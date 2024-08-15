@@ -10,22 +10,21 @@ interface FlightSearchRepository {
 
     fun getRoutesList(deptCode: String): Flow<List<Route>>
 
-    fun getFavoriteRoutesList(): Flow<List<Favorite>>
+    suspend fun addToFavorite(departCode: String, arriveCode: String)
 
-    suspend fun addToFavorite(route: Route)
+    suspend fun removeFromFavorite(departCode: String, arriveCode: String)
 }
 
 
 class FlightSearchRepoImpl @Inject constructor(
     private val airportDao: AirportDao,
     private val routeDao: RoutesDao,
-    private val favoriteDao: FavoriteDao
 ): FlightSearchRepository {
     override fun getAirport(searchQuery: String): Flow<List<Airport>> = airportDao.getAirport(searchQuery)
 
     override fun getRoutesList(deptCode: String): Flow<List<Route>> = routeDao.getRoutesList(deptCode)
 
-    override fun getFavoriteRoutesList(): Flow<List<Favorite>> = favoriteDao.getFavoriteRoutesList()
+    override suspend fun addToFavorite(departCode: String, arriveCode: String) = routeDao.addToFavorite(departCode = departCode, arriveCode = arriveCode)
 
-    override suspend fun addToFavorite(route: Route) = favoriteDao.addToFavorites(route)
+    override suspend fun removeFromFavorite(departCode: String, arriveCode: String) = routeDao.removeFromFavorite(departCode = departCode, arriveCode = arriveCode)
 }

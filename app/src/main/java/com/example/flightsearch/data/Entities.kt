@@ -19,13 +19,6 @@ data class Route(
     @PrimaryKey(autoGenerate = true)
     val id: Int = 1,
     val departCode: String,
-    val arriveCode: String
-)
-
-@Entity(tableName = "favorites")
-data class Favorite(
-    @PrimaryKey(autoGenerate = true)
-    val id: Int = 1,
-    val departCode: String,
-    val arriveCode: String
+    val arriveCode: String,
+    val isFav: Boolean
 )

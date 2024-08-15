@@ -4,9 +4,12 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsFocusedAsState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Button
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
 import androidx.compose.ui.Alignment
@@ -57,6 +60,23 @@ fun HomeScreen(
                 searchQuery = searchQuery,
                 interactionSource = interactionSource
             )
+            Row(
+                horizontalArrangement = Arrangement.SpaceEvenly
+            ){
+                Button(
+                    onClick = { navController.navigate("SearchScreen") }
+                ) {
+                    Text(
+                        text = "Search"
+                    )
+                }
+                Button(
+                    onClick = { navController.navigate("SearchScreen") }
+                ) {
+                    Text("Favorites"
+                    )
+                }
+            }
 
             NavHost(
                 navController = navController,
@@ -77,6 +97,7 @@ fun HomeScreen(
                     RouteScreen()
                 }
             }
+
 
 
         }

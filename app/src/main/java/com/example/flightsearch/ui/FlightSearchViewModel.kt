@@ -18,6 +18,7 @@ class FlightSearchViewModel @Inject constructor(
     private val _uiState = MutableStateFlow(FlightSearchUiState())
     val uiState = _uiState.asStateFlow()
 
+
     fun updateSearchString(changedString: String) {
         _uiState.update {
             it.copy(
@@ -46,6 +47,18 @@ class FlightSearchViewModel @Inject constructor(
                     )
                 }
             }
+        }
+    }
+
+    fun addRouteToFav(departAirportCode: String, arriveAirportCode: String) {
+        viewModelScope.launch {
+            flightSearchRepo.addToFavorite(departCode = departAirportCode, arriveCode = arriveAirportCode)
+        }
+    }
+
+    fun removeRouteFromFav(departAirportCode: String, arriveAirportCode: String) {
+        viewModelScope.launch {
+            flightSearchRepo.removeFromFavorite(departAirportCode, arriveAirportCode)
         }
     }
 }

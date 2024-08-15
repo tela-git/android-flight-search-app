@@ -1,4 +1,5 @@
 
+import android.util.Log
 import androidx.compose.foundation.interaction.InteractionSource
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsFocusedAsState
@@ -36,7 +37,8 @@ fun HomeScreen(
     response: List<Airport>,
     error: String?,
     isLoading: Boolean,
-    interactionSource: MutableInteractionSource
+    interactionSource: MutableInteractionSource,
+    favRoutes: List<RouteDetails>
 ) {
    var isSearchBarFocused: Boolean = interactionSource.collectIsFocusedAsState().value
     Scaffold(
@@ -60,31 +62,16 @@ fun HomeScreen(
                 searchQuery = searchQuery,
                 interactionSource = interactionSource
             )
-            Row(
-                horizontalArrangement = Arrangement.SpaceEvenly
-            ){
-                Button(
-                    onClick = { navController.navigate("SearchScreen") }
-                ) {
-                    Text(
-                        text = "Search"
-                    )
-                }
-                Button(
-                    onClick = { navController.navigate("SearchScreen") }
-                ) {
-                    Text("Favorites"
-                    )
-                }
-            }
 
             NavHost(
                 navController = navController,
                 startDestination = "FavoritesScreen"
             ) {
-                val favRoutes: List<RouteDetails> = listOf()
+
                 composable(route = "FavoritesScreen") {
-                    FavRouteScreen(favRoutes = favRoutes)
+                    FavRouteScreen(
+                        favRoutes = favRoutes
+                    )
                 }
                 composable(route = "SearchScreen") {
                     SearchScreen(

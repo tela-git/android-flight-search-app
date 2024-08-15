@@ -1,15 +1,21 @@
 package com.example.flightsearch.ui.appuicomponents
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.gestures.Orientation
+import androidx.compose.foundation.gestures.ScrollableState
+import androidx.compose.foundation.gestures.scrollable
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.material3.Card
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -35,6 +41,8 @@ fun RouteCard(
             horizontalArrangement = Arrangement.SpaceBetween,
             modifier = modifier.fillMaxWidth()
         ){
+            val scrollState = rememberScrollState()
+
             Column(
                 modifier = Modifier.fillMaxWidth(0.8f)
             ) {
@@ -51,6 +59,7 @@ fun RouteCard(
                     Row(
                         modifier = Modifier
                             .padding(vertical = 4.dp)
+                            .horizontalScroll(scrollState)
                     ) {
                         Text(
                             text = route.departAirportCode,
@@ -58,7 +67,11 @@ fun RouteCard(
                             fontWeight = FontWeight.Bold
                         )
                         Text(
-                            text = if(sl <= 38) route.departAirport else route.departAirport.dropLast(sl-36) + "...",
+//                            text = if (sl <= 23) {
+                                route.departAirport,
+//                            } else {
+//                                route.departAirport.take(21) + "..."
+//                            },
                             maxLines = 1
                         )
                     }
@@ -75,6 +88,7 @@ fun RouteCard(
                     }
                     Row(
                         modifier = Modifier.padding(4.dp)
+                            .horizontalScroll(scrollState)
                     ) {
                         Text(
                             text = route.arriveAirportCode,
@@ -82,7 +96,11 @@ fun RouteCard(
                             fontWeight = FontWeight.Bold,
                         )
                         Text(
-                            text = if(sl <= 38) route.arriveAirport else route.arriveAirport.dropLast(sl-36) + "...",
+//                            text = if (sl <= 23) {
+                                route.arriveAirport,
+//                            } else {
+//                                route.departAirport.take(21) + "..."
+//                            },
                             maxLines = 1
                         )
                     }
@@ -90,7 +108,9 @@ fun RouteCard(
             }
 
             IconButton(
-                onClick =  {},
+                onClick =  {
+
+                },
             ) {
                 when(isFav){
                     true ->

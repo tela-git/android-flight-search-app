@@ -6,6 +6,8 @@ import androidx.compose.foundation.interaction.collectIsFocusedAsState
 import androidx.compose.runtime.State
 import com.example.flightsearch.data.Airport
 import com.example.flightsearch.data.Route
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flowOf
 
 
 data class FlightSearchUiState(
@@ -14,4 +16,7 @@ data class FlightSearchUiState(
     val isLoading: Boolean = false,
     val error: String? = null,
     val interactionSource: MutableInteractionSource = MutableInteractionSource(),
+    val favRoutesList: List<RouteDetails> = emptyList()
+
 )
+

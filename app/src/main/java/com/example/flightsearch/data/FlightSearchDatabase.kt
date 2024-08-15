@@ -18,12 +18,9 @@ abstract class FlightSearchDatabase: RoomDatabase() {
         private var INSTANCE: FlightSearchDatabase? = null
 
         fun getDatabase(context: Context): FlightSearchDatabase {
-            Log.d( "db", "getDatabase function called in companion object in Db class")
             return INSTANCE ?: synchronized(this) {
-                Log.d("db","return instance is excecuted")
                 val instance =  Room.databaseBuilder(context, FlightSearchDatabase::class.java,"flight_search_db" )
                     .build()
-                Log.d("db",".build is called")
                 INSTANCE = instance
 
                 instance

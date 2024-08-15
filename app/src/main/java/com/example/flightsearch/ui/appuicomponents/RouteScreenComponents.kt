@@ -58,7 +58,7 @@ fun RouteCard(
                             fontWeight = FontWeight.Bold
                         )
                         Text(
-                            text = if(sl <= 38) route.departAirport else route.departAirport.dropLast(sl-38) + "...",
+                            text = if(sl <= 38) route.departAirport else route.departAirport.dropLast(sl-36) + "...",
                             maxLines = 1
                         )
                     }
@@ -82,7 +82,7 @@ fun RouteCard(
                             fontWeight = FontWeight.Bold,
                         )
                         Text(
-                            text = if(sl <= 38) route.arriveAirport else route.arriveAirport.dropLast(sl-38) + "...",
+                            text = if(sl <= 38) route.arriveAirport else route.arriveAirport.dropLast(sl-36) + "...",
                             maxLines = 1
                         )
                     }

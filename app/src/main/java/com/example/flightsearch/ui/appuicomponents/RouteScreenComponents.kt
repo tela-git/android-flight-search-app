@@ -36,12 +36,13 @@ fun RouteCard(
             modifier = modifier.fillMaxWidth()
         ){
             Column(
-
+                modifier = Modifier.fillMaxWidth(0.8f)
             ) {
                 Column(
                     modifier = Modifier
                         .padding(10.dp, 10.dp, 0.dp, 2.dp)
                 ) {
+                    val sl = route.departAirport.length
                     Row() {
                         Text(
                             text = "Depart: "
@@ -57,7 +58,8 @@ fun RouteCard(
                             fontWeight = FontWeight.Bold
                         )
                         Text(
-                            text = route.departAirport
+                            text = if(sl <= 38) route.departAirport else route.departAirport.dropLast(sl-38) + "...",
+                            maxLines = 1
                         )
                     }
                 }
@@ -65,6 +67,7 @@ fun RouteCard(
                     modifier = Modifier
                         .padding(10.dp, 2.dp, 0.dp, 10.dp)
                 ) {
+                    val sl = route.arriveAirport.length
                     Row() {
                         Text(
                             text = "Arrive: "
@@ -76,10 +79,11 @@ fun RouteCard(
                         Text(
                             text = route.arriveAirportCode,
                             modifier = Modifier.padding(horizontal = 10.dp),
-                            fontWeight = FontWeight.Bold
+                            fontWeight = FontWeight.Bold,
                         )
                         Text(
-                            text = route.arriveAirport
+                            text = if(sl <= 38) route.arriveAirport else route.arriveAirport.dropLast(sl-38) + "...",
+                            maxLines = 1
                         )
                     }
                 }
@@ -118,7 +122,7 @@ fun RouteCardPreview() {
         route = RouteDetails(
             id = 1,
             departAirport = "Rajiv Gandhi International Airport",
-            arriveAirport = "Kempegowda International Airport",
+            arriveAirport = "Chhatrapathi Shivaji Maharaj International Airport",
             departAirportCode = "HYD",
             arriveAirportCode = "KMP"
         ),

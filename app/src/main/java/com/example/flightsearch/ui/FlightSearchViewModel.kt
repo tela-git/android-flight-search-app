@@ -85,6 +85,14 @@ class FlightSearchViewModel @Inject constructor(
         }
     }
 
+    fun changeSearchBarActiveStatus(isActive: Boolean) {
+        _uiState.update {
+            it.copy(
+                isSearchBarActive = isActive
+            )
+        }
+    }
+
     init {
         viewModelScope.launch {
             flightSearchRepo.getFavoriteRoutesList()

@@ -15,8 +15,7 @@ data class FlightSearchUiState(
     val response: List<Airport> = emptyList(),
     val isLoading: Boolean = false,
     val error: String? = null,
-    val interactionSource: MutableInteractionSource = MutableInteractionSource(),
-    val favRoutesList: List<RouteDetails> = emptyList()
-
+    val favRoutesList: List<RouteDetails> = emptyList(),
+    val isSearchBarActive: Boolean = false
 )
 

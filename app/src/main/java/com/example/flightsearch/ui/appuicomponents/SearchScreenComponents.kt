@@ -1,6 +1,7 @@
 package com.example.flightsearch.ui.appuicomponents
 
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardColors
@@ -13,6 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.flightsearch.data.Airport
 
@@ -27,8 +29,8 @@ fun AirportCard(
     Card(
         modifier = modifier
             .fillMaxWidth()
-            .padding(horizontal = 4.dp, vertical = 2.dp),
-        //.fillMaxHeight(0.1f),
+            .padding(horizontal = 4.dp, vertical = 0.dp)
+            .heightIn(max = 28f.dp),
         colors = CardColors(
             containerColor = Color.Transparent,
             contentColor = MaterialTheme.colorScheme.secondary,
@@ -51,4 +53,13 @@ fun AirportCard(
             )
         }
     }
+}
+
+@Composable
+@Preview
+fun AirportCardPreview() {
+    AirportCard(
+        airportInSearch = Airport(1,"Rajiv Gandhi International Airport","HYD",234),
+        onAirportCardClicked = {}
+    )
 }

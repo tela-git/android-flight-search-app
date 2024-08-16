@@ -1,5 +1,6 @@
 
 import android.util.Log
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.interaction.InteractionSource
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsFocusedAsState
@@ -37,61 +38,58 @@ fun HomeScreen(
     response: List<Airport>,
     error: String?,
     isLoading: Boolean,
-    interactionSource: MutableInteractionSource,
     favRoutes: List<RouteDetails>,
     addRouteToFavorites: (String, String) -> Unit,
-    removeRouteFromFavorites: (String, String) -> Unit
+    removeRouteFromFavorites: (String, String) -> Unit,
+    isSearchBarActive: Boolean,
+    onSearchBarActiveChange: (Boolean) -> Unit
 ) {
-   var isSearchBarFocused: Boolean = interactionSource.collectIsFocusedAsState().value
+    val navController = rememberNavController()
+
     Scaffold(
         topBar = {
             AppTopBar()
         },
         modifier = modifier,
-    ) {innerPadding->
-        val navController = rememberNavController()
-
-        Column(
-            modifier = Modifier
-                .padding(innerPadding)
-                .padding(dimensionResource(R.dimen.small)),
-            verticalArrangement = Arrangement.Top,
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            FlightSearchBar(
-                modifier = Modifier,
-                onSearchValueChange = onSearchValueChange,
-                searchQuery = searchQuery,
-                interactionSource = interactionSource
-            )
-
-            NavHost(
-                navController = navController,
-                startDestination = "FavoritesScreen"
+    ) { innerPadding ->
+            Column(
+                modifier = Modifier
+                    .padding(innerPadding)
+                    .fillMaxSize(),
+                verticalArrangement = Arrangement.Top,
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
+                FlightSearchBar(
+                    modifier = Modifier,
+                    onSearchValueChange = onSearchValueChange,
+                    searchQuery = searchQuery,
+                    onSearchBarActiveChange = onSearchBarActiveChange,
+                    isActive = isSearchBarActive,
+                    response = response,
+                    onAirportCardClicked = {},
+                    navController = navController,
+                    isLoading = isLoading
+                )
 
-                composable(route = "FavoritesScreen") {
-                    FavRouteScreen(
-                        favRoutes = favRoutes,
-                        addRouteToFavorites = addRouteToFavorites,
-                        removeRouteFromFavorites = removeRouteFromFavorites
-                    )
+                NavHost(
+                    navController = navController,
+                    startDestination = "FavoritesScreen"
+                ) {
+                    composable(route = "FavoritesScreen") {
+                        FavRouteScreen(
+                            favRoutes = favRoutes,
+                            addRouteToFavorites = addRouteToFavorites,
+                            removeRouteFromFavorites = removeRouteFromFavorites
+                        )
+                    }
+                    composable(route = "RouteScreen") {
+                        RouteScreen()
+                    }
                 }
-                composable(route = "SearchScreen") {
-                    SearchScreen(
-                        searchQuery = searchQuery,
-                        response = response,
-                        onAirportCardClicked = { isSearchBarFocused = false }
-                    )
-                }
-                composable(route = "RouteScreen") {
-                    RouteScreen()
-                }
+
+
             }
 
-
-
-        }
     }
 }
 

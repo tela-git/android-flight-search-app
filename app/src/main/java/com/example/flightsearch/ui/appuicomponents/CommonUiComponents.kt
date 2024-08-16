@@ -1,10 +1,6 @@
 package com.example.flightsearch.ui.appuicomponents
 
-import android.graphics.drawable.Icon
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -14,8 +10,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -23,23 +17,19 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.SearchBar
 import androidx.compose.material3.SearchBarDefaults
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextFieldColors
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
-import com.example.flightsearch.R
 import com.example.flightsearch.data.Airport
 
 
@@ -72,18 +62,31 @@ fun FlightSearchBar(
         },
         placeholder = {
             Text(
-                text = "Search for departure airports..."
+                text = "Search for departure airports"
             )
-        }
+        },
+        colors = SearchBarDefaults.colors(
+            containerColor = MaterialTheme.colorScheme.primaryContainer
+        ),
+        tonalElevation = 10.dp,
+        shadowElevation = 8.dp,
+        modifier = Modifier
     ) {
         Column(
             modifier = modifier
                 .fillMaxSize()
                 .padding(16.dp)
-        ){
-            if(isLoading) {
-                modifier.height(150.dp)
-                CircularProgressIndicator()
+        ){ if(searchQuery.isEmpty()) {
+            Text(
+                text = "Try searching DEL or Indira...",
+                modifier = Modifier.align(alignment = Alignment.CenterHorizontally)
+            )
+        } else if(isLoading) {
+                modifier
+                    .height(150.dp)
+                    .align(Alignment.CenterHorizontally)
+                CircularProgressIndicator(
+                )
             } else if (response.isNotEmpty()) {
                 AirportSearchDropDown(
                     airportSearchList = response,

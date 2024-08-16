@@ -1,9 +1,6 @@
 package com.example.flightsearch.ui.appuicomponents
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.gestures.Orientation
-import androidx.compose.foundation.gestures.ScrollableState
-import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -15,7 +12,6 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -23,7 +19,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.flightsearch.R
-import com.example.flightsearch.data.Route
 import com.example.flightsearch.ui.RouteDetails
 
 
@@ -31,7 +26,9 @@ import com.example.flightsearch.ui.RouteDetails
 fun RouteCard(
     modifier: Modifier = Modifier,
     route: RouteDetails,
-    isFav: Boolean
+    isFav: Boolean,
+    addRouteToFavorites: (departCode: String, arriveCode: String)-> Unit,
+    removeRouteFromFavorites: (departCode: String,arriveCode: String) -> Unit
 ) {
     Card(
         modifier = modifier.fillMaxWidth()
@@ -106,11 +103,16 @@ fun RouteCard(
                     }
                 }
             }
-
             IconButton(
                 onClick =  {
-
+                    if(isFav)  {
+                        removeRouteFromFavorites(route.departAirportCode,route.arriveAirportCode)
+                    } else  {
+                        addRouteToFavorites(route.departAirportCode,route.arriveAirportCode)
+                    }
                 },
+                modifier = Modifier
+
             ) {
                 when(isFav){
                     true ->
@@ -146,6 +148,8 @@ fun RouteCardPreview() {
             departAirportCode = "HYD",
             arriveAirportCode = "KMP"
         ),
-        isFav = false
+        isFav = false,
+        addRouteToFavorites = {a,b->},
+        removeRouteFromFavorites = {a,b-> }
     )
 }

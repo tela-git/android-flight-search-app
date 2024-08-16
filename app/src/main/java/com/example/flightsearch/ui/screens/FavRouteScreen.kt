@@ -14,7 +14,9 @@ import com.example.flightsearch.ui.appuicomponents.RouteCard
 @Composable
 fun FavRouteScreen(
     modifier: Modifier = Modifier,
-    favRoutes: List<RouteDetails> = emptyList()
+    favRoutes: List<RouteDetails> = emptyList(),
+    addRouteToFavorites: (String, String) -> Unit,
+    removeRouteFromFavorites: (String, String) -> Unit
 ) {
     LazyColumn(
         modifier = modifier,
@@ -26,7 +28,9 @@ fun FavRouteScreen(
         ) { item->
             RouteCard(
                 route = item,
-                isFav = true
+                isFav = true,
+                addRouteToFavorites = addRouteToFavorites,
+                removeRouteFromFavorites = removeRouteFromFavorites
             )
         }
     }

@@ -38,7 +38,9 @@ fun HomeScreen(
     error: String?,
     isLoading: Boolean,
     interactionSource: MutableInteractionSource,
-    favRoutes: List<RouteDetails>
+    favRoutes: List<RouteDetails>,
+    addRouteToFavorites: (String, String) -> Unit,
+    removeRouteFromFavorites: (String, String) -> Unit
 ) {
    var isSearchBarFocused: Boolean = interactionSource.collectIsFocusedAsState().value
     Scaffold(
@@ -70,7 +72,9 @@ fun HomeScreen(
 
                 composable(route = "FavoritesScreen") {
                     FavRouteScreen(
-                        favRoutes = favRoutes
+                        favRoutes = favRoutes,
+                        addRouteToFavorites = addRouteToFavorites,
+                        removeRouteFromFavorites = removeRouteFromFavorites
                     )
                 }
                 composable(route = "SearchScreen") {

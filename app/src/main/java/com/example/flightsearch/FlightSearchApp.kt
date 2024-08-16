@@ -30,5 +30,7 @@ fun FlightSearchApp(
         isLoading = appUiState.isLoading,
         interactionSource = appUiState.interactionSource,
         favRoutes = appUiState.favRoutesList,
+        addRouteToFavorites = { departCode,arriveCode-> appViewModel.addRouteToFav(departAirportCode = departCode, arriveAirportCode = arriveCode) },
+        removeRouteFromFavorites =  { departCode, arriveCode -> appViewModel.removeRouteFromFav(departCode,arriveCode) }
     )
 }

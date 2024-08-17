@@ -29,14 +29,14 @@ class FlightSearchViewModel @Inject constructor(
     val uiState = _uiState.asStateFlow()
 
     private suspend fun toRouteDetails(routes: List<Route>): List<RouteDetails> {
-        Log.d("TAG","toRouteDetails is called")
         return routes.map{ route->
             RouteDetails(
-            id = route.id,
-            arriveAirportCode = route.arriveCode,
-            departAirportCode = route.departCode,
+                id = route.id,
+                arriveAirportCode = route.arriveCode,
+                departAirportCode = route.departCode,
                 arriveAirport = flightSearchRepo.getAirportNameByCode(route.arriveCode),
-                departAirport = flightSearchRepo.getAirportNameByCode(route.departCode)
+                departAirport = flightSearchRepo.getAirportNameByCode(route.departCode),
+                isFav = route.isFav
            )
         }
     }
@@ -70,6 +70,29 @@ class FlightSearchViewModel @Inject constructor(
                     )
                 }
             }
+        }
+    }
+
+    fun routesListFromAirport(deptAirportCode: String?): List<RouteDetails> {
+        try {
+            if (deptAirportCode.isNullOrBlank()) {
+                return listOf()
+            } else {
+                viewModelScope.launch {
+                    flightSearchRepo.getRoutesList(deptAirportCode)
+                        .map { routes -> toRouteDetails(routes) }
+                        .collect { routes ->
+                            _uiState.update { state ->
+                                state.copy(
+                                    routesList = routes
+                                )
+                            }
+                        }
+                }
+                return uiState.value.routesList
+            }
+        } catch (e: Exception) {
+            return uiState.value.routesList
         }
     }
 
@@ -119,7 +142,8 @@ data class RouteDetails(
     val departAirport: String,
     val arriveAirport: String,
     val departAirportCode: String,
-    val arriveAirportCode: String
+    val arriveAirportCode: String,
+    val isFav: Boolean
 )
 
 

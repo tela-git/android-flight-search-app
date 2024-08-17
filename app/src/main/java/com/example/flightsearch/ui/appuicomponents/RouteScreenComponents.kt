@@ -26,7 +26,6 @@ import com.example.flightsearch.ui.RouteDetails
 fun RouteCard(
     modifier: Modifier = Modifier,
     route: RouteDetails,
-    isFav: Boolean,
     addRouteToFavorites: (departCode: String, arriveCode: String)-> Unit,
     removeRouteFromFavorites: (departCode: String,arriveCode: String) -> Unit
 ) {
@@ -105,7 +104,7 @@ fun RouteCard(
             }
             IconButton(
                 onClick =  {
-                    if(isFav)  {
+                    if(route.isFav)  {
                         removeRouteFromFavorites(route.departAirportCode,route.arriveAirportCode)
                     } else  {
                         addRouteToFavorites(route.departAirportCode,route.arriveAirportCode)
@@ -114,7 +113,7 @@ fun RouteCard(
                 modifier = Modifier
 
             ) {
-                when(isFav){
+                when(route.isFav){
                     true ->
                         Image(
                             painter = painterResource(R.drawable.filled_star),
@@ -146,9 +145,9 @@ fun RouteCardPreview() {
             departAirport = "Rajiv Gandhi International Airport",
             arriveAirport = "Chhatrapathi Shivaji Maharaj International Airport",
             departAirportCode = "HYD",
-            arriveAirportCode = "KMP"
+            arriveAirportCode = "KMP",
+            isFav = false
         ),
-        isFav = false,
         addRouteToFavorites = {a,b->},
         removeRouteFromFavorites = {a,b-> }
     )

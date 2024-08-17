@@ -21,9 +21,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavArgument
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.example.flightsearch.R
 import com.example.flightsearch.data.Airport
 import com.example.flightsearch.data.Route
@@ -31,7 +34,7 @@ import com.example.flightsearch.ui.RouteDetails
 import com.example.flightsearch.ui.appuicomponents.AppTopBar
 import com.example.flightsearch.ui.appuicomponents.FlightSearchBar
 import com.example.flightsearch.ui.screens.FavRouteScreen
-import com.example.flightsearch.ui.screens.RouteScreen
+import com.example.flightsearch.ui.screens.RoutesFromAnAirportScreen
 
 
 @Composable
@@ -46,7 +49,8 @@ fun HomeScreen(
     addRouteToFavorites: (String, String) -> Unit,
     removeRouteFromFavorites: (String, String) -> Unit,
     isSearchBarActive: Boolean,
-    onSearchBarActiveChange: (Boolean) -> Unit
+    onSearchBarActiveChange: (Boolean) -> Unit,
+    getroutesListFromAnAirport: (String?) -> (List<RouteDetails>)
 ) {
     val navController = rememberNavController()
 
@@ -70,9 +74,9 @@ fun HomeScreen(
                     onSearchBarActiveChange = onSearchBarActiveChange,
                     isActive = isSearchBarActive,
                     response = response,
-                    onAirportCardClicked = {},
                     navController = navController,
-                    isLoading = isLoading
+                    isLoading = isLoading,
+                    onAirportCardClicked =  { }
                 )
 
                 NavHost(
@@ -86,8 +90,15 @@ fun HomeScreen(
                             removeRouteFromFavorites = removeRouteFromFavorites
                         )
                     }
-                    composable(route = "RouteScreen") {
-                        RouteScreen()
+                    composable(
+                        route = "RoutesFromAnAirportScreen/{departCode}",
+                        arguments = listOf(navArgument("departCode") { type = NavType.StringType})
+                        ) {
+                        RoutesFromAnAirportScreen(
+                            addRouteToFavorites = addRouteToFavorites,
+                            removeRouteFromFavorites = removeRouteFromFavorites,
+                            routes = getroutesListFromAnAirport(it.arguments?.getString("departCode"))
+                        )
                     }
                 }
 
@@ -133,14 +144,16 @@ fun HomeScreenPreview() {
                 departAirport = "Sardar Vallabhbhai Patel International Airport",
                 arriveAirport = "Srinagar International Airport",
                 departAirportCode = "SVP",
-                arriveAirportCode = "SIA"
+                arriveAirportCode = "SIA",
+                true
             ),
             RouteDetails(
                 id = 2,
                 departAirport = "Indira Gandhi International Airport",
                 arriveAirport = "Chhatrapati Shivaji Maharaj International Airport",
                 departAirportCode = "DEL",
-                arriveAirportCode = "BOM"
+                arriveAirportCode = "BOM",
+                false
             ),
 
             RouteDetails(
@@ -148,7 +161,8 @@ fun HomeScreenPreview() {
                 departAirport = "Kempegowda International Airport",
                 arriveAirport = "Netaji Subhas Chandra Bose",
                 departAirportCode = "BLR",
-                arriveAirportCode = "CCU"
+                arriveAirportCode = "CCU",
+                true
             ),
 
             RouteDetails(
@@ -156,10 +170,12 @@ fun HomeScreenPreview() {
                 departAirport = "Rajiv Gandhi International Airport",
                 arriveAirport = "Cochin International Airport",
                 departAirportCode = "HYD",
-                arriveAirportCode = "COK"
+                arriveAirportCode = "COK",
+                true
             ),
 
             ),
-        onSearchBarActiveChange = {}
+        onSearchBarActiveChange = {},
+        getroutesListFromAnAirport = {code->  listOf()}
     )
 }

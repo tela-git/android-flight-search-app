@@ -16,6 +16,7 @@ data class FlightSearchUiState(
     val isLoading: Boolean = false,
     val error: String? = null,
     val favRoutesList: List<RouteDetails> = emptyList(),
-    val isSearchBarActive: Boolean = false
+    val isSearchBarActive: Boolean = false,
+    val routesList: List<RouteDetails> = emptyList()
 )
 

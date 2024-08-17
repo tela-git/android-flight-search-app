@@ -31,9 +31,8 @@ class FlightSearchRepoImpl @Inject constructor(
 
     override suspend fun getAirportNameByCode(iataCode: String): String = airportDao.getAirportNameByCode(iataCode)
 
-    override fun getFavoriteRoutesList(): Flow<List<Route>> {
-       return routeDao.getFavRoutesList()
-    }
+    override fun getFavoriteRoutesList(): Flow<List<Route>> = routeDao.getFavRoutesList()
+
 
     override suspend fun addToFavorite(departCode: String, arriveCode: String) = routeDao.addToFavorite(departCode = departCode, arriveCode = arriveCode)
 

@@ -59,7 +59,9 @@ fun FlightSearchBar(
                 IconButton(
                     onClick = {
                         onSearchBarActiveChange(false)
-                        navController.navigate("FavoritesScreen")
+                        navController.navigate("FavoritesScreen") {
+                            popUpTo("FavoritesScreen") {inclusive = false}
+                        }
                     }
                 ) {
                     Icon(
@@ -95,8 +97,11 @@ fun FlightSearchBar(
             isLoading = isLoading,
             response = response,
             onAirportCardClicked = { Airport ->
-                navController.navigate("RoutesFromAnAirportScreen/${Airport.iataCode}")
+                navController.navigate("RoutesFromAnAirportScreen/${Airport.iataCode}") {
+                    popUpTo("RoutesFromAnAirportScreen") {inclusive = false}
+                }
                 onSearchBarActiveChange(false)
+
             }
         )
     }

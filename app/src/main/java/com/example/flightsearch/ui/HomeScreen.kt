@@ -95,10 +95,14 @@ fun HomeScreen(
                         route = "RoutesFromAnAirportScreen/{departCode}",
                         arguments = listOf(navArgument("departCode") { type = NavType.StringType})
                         ) {
+                        BackHandler {
+
+                        }
                         RoutesFromAnAirportScreen(
                             addRouteToFavorites = addRouteToFavorites,
                             removeRouteFromFavorites = removeRouteFromFavorites,
-                            routes = getroutesListFromAnAirport(it.arguments?.getString("departCode"))
+                            routes = getroutesListFromAnAirport(it.arguments?.getString("departCode")),
+                            navController = navController
                         )
                     }
                 }
@@ -177,6 +181,6 @@ fun HomeScreenPreview() {
 
             ),
         onSearchBarActiveChange = {},
-        getroutesListFromAnAirport = {code->  RoutesFromAirport()}
+        getroutesListFromAnAirport = {code->  RoutesFromAirport() }
     )
 }

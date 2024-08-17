@@ -1,5 +1,6 @@
 package com.example.flightsearch.ui.screens
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -14,6 +15,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import com.example.flightsearch.ui.RouteDetails
 import com.example.flightsearch.ui.RoutesFromAirport
 import com.example.flightsearch.ui.appuicomponents.RouteCard
@@ -24,8 +27,15 @@ fun RoutesFromAnAirportScreen(
     routes: RoutesFromAirport,
     modifier: Modifier = Modifier,
     addRouteToFavorites: (String, String) -> Unit,
-    removeRouteFromFavorites: (String, String) -> Unit
+    removeRouteFromFavorites: (String, String) -> Unit,
+    navController: NavHostController
 ) {
+    BackHandler {
+        navController.navigate("FavoritesScreen") {
+            popUpTo("FavoritesScreen") {inclusive = false}
+        }
+    }
+    
     Column(
         modifier = modifier
             .fillMaxSize(),

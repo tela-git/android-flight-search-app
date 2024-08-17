@@ -35,8 +35,8 @@ class FlightSearchViewModel @Inject constructor(
                 id = route.id,
                 arriveAirportCode = route.arriveCode,
                 departAirportCode = route.departCode,
-                arriveAirport = flightSearchRepo.getAirportNameByCode(route.arriveCode),
-                departAirport = flightSearchRepo.getAirportNameByCode(route.departCode),
+                arriveAirport = flightSearchRepo.getAirportNameByCode(route.arriveCode)?: "Error fetching airport name !",
+                departAirport = flightSearchRepo.getAirportNameByCode(route.departCode)?: "Error fetching airport name !",
                 isFav = route.isFav
            )
         }

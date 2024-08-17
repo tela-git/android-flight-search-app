@@ -35,7 +35,7 @@ fun RoutesFromAnAirportScreen(
             popUpTo("FavoritesScreen") {inclusive = false}
         }
     }
-    
+
     Column(
         modifier = modifier
             .fillMaxSize(),

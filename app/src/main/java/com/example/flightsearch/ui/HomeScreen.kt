@@ -31,6 +31,7 @@ import com.example.flightsearch.R
 import com.example.flightsearch.data.Airport
 import com.example.flightsearch.data.Route
 import com.example.flightsearch.ui.RouteDetails
+import com.example.flightsearch.ui.RoutesFromAirport
 import com.example.flightsearch.ui.appuicomponents.AppTopBar
 import com.example.flightsearch.ui.appuicomponents.FlightSearchBar
 import com.example.flightsearch.ui.screens.FavRouteScreen
@@ -50,7 +51,7 @@ fun HomeScreen(
     removeRouteFromFavorites: (String, String) -> Unit,
     isSearchBarActive: Boolean,
     onSearchBarActiveChange: (Boolean) -> Unit,
-    getroutesListFromAnAirport: (String?) -> (List<RouteDetails>)
+    getroutesListFromAnAirport: (String?) -> (RoutesFromAirport)
 ) {
     val navController = rememberNavController()
 
@@ -176,6 +177,6 @@ fun HomeScreenPreview() {
 
             ),
         onSearchBarActiveChange = {},
-        getroutesListFromAnAirport = {code->  listOf()}
+        getroutesListFromAnAirport = {code->  RoutesFromAirport()}
     )
 }

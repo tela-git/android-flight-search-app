@@ -28,6 +28,7 @@ class FlightSearchViewModel @Inject constructor(
     private val _uiState = MutableStateFlow(FlightSearchUiState())
     val uiState = _uiState.asStateFlow()
 
+    //function that converts Route table entity to RouteDetails data class which takes two extra parameters(airport names)
     private suspend fun toRouteDetails(routes: List<Route>): List<RouteDetails> {
         return routes.map{ route->
             RouteDetails(
@@ -41,7 +42,7 @@ class FlightSearchViewModel @Inject constructor(
         }
     }
 
-
+    //function to update the searchQuery typed in the searchBar and get all the airport names matching with the name or code
     fun updateSearchString(changedString: String) {
         _uiState.update {
             it.copy(
@@ -73,26 +74,46 @@ class FlightSearchViewModel @Inject constructor(
         }
     }
 
-    fun routesListFromAirport(deptAirportCode: String?): List<RouteDetails> {
+    //function to get a list of routes with the provided airport for departure
+    fun routesListFromAirport(deptAirportCode: String?): RoutesFromAirport {
         try {
             if (deptAirportCode.isNullOrBlank()) {
-                return listOf()
+                return RoutesFromAirport(
+                    routesList = emptyList(),
+                    isEmpty = true
+                )
             } else {
                 viewModelScope.launch {
                     flightSearchRepo.getRoutesList(deptAirportCode)
-                        .map { routes -> toRouteDetails(routes) }
+                        .map { routes ->
+                            if(routes.isNotEmpty()) toRouteDetails(routes) else emptyList()
+                        }
                         .collect { routes ->
-                            _uiState.update { state ->
-                                state.copy(
-                                    routesList = routes
-                                )
+                            if(routes.isNotEmpty()){
+                                _uiState.update { state ->
+                                    state.copy(
+                                        routesFromAirport = RoutesFromAirport(
+                                            routesList = routes,
+                                            isEmpty = false
+                                        )
+                                    )
+                                }
+                            } else {
+                                _uiState.update { state->
+                                    state.copy(
+                                        routesFromAirport = RoutesFromAirport(
+                                            routesList = emptyList(),
+                                            isEmpty = true
+                                        )
+                                    )
+                                }
                             }
                         }
                 }
-                return uiState.value.routesList
+                return uiState.value.routesFromAirport
             }
         } catch (e: Exception) {
-            return uiState.value.routesList
+            return uiState.value.routesFromAirport
         }
     }
 

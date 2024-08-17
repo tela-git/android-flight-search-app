@@ -17,6 +17,11 @@ data class FlightSearchUiState(
     val error: String? = null,
     val favRoutesList: List<RouteDetails> = emptyList(),
     val isSearchBarActive: Boolean = false,
-    val routesList: List<RouteDetails> = emptyList()
+    val routesFromAirport: RoutesFromAirport = RoutesFromAirport()
+)
+
+data class RoutesFromAirport(
+    val routesList: List<RouteDetails> = emptyList(),
+    val isEmpty: Boolean = true
 )
 

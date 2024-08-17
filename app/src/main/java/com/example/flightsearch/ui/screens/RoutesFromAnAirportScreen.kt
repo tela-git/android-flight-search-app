@@ -15,12 +15,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.flightsearch.ui.RouteDetails
+import com.example.flightsearch.ui.RoutesFromAirport
 import com.example.flightsearch.ui.appuicomponents.RouteCard
 
 
 @Composable
 fun RoutesFromAnAirportScreen(
-    routes: List<RouteDetails>,
+    routes: RoutesFromAirport,
     modifier: Modifier = Modifier,
     addRouteToFavorites: (String, String) -> Unit,
     removeRouteFromFavorites: (String, String) -> Unit
@@ -36,7 +37,7 @@ fun RoutesFromAnAirportScreen(
                 .padding(horizontal = 16.dp)
         ) {
             Text(
-                text = "Departure from : ${routes.first().departAirport}",
+                text = if(routes.isEmpty.not()) "Departure from : ${routes.routesList.first().departAirport}" else "Sorry!",
                 style = MaterialTheme.typography.titleMedium
             )
         }
@@ -46,14 +47,23 @@ fun RoutesFromAnAirportScreen(
             verticalArrangement = Arrangement.spacedBy(10.dp),
             contentPadding = PaddingValues(4.dp)
         ) {
-            items(
-                items = routes
-            ) { item ->
-                RouteCard(
-                    route = item,
-                    addRouteToFavorites = addRouteToFavorites,
-                    removeRouteFromFavorites = removeRouteFromFavorites
-                )
+            if(routes.isEmpty.not()){
+                items(
+                    items = routes.routesList
+                ) { item ->
+                    RouteCard(
+                        route = item,
+                        addRouteToFavorites = addRouteToFavorites,
+                        removeRouteFromFavorites = removeRouteFromFavorites
+                    )
+                }
+            } else {
+                item {
+                    Text(
+                        text = "No Routes From this airport!! Try departure from another.",
+                        style = MaterialTheme.typography.labelLarge
+                    )
+                }
             }
         }
     }

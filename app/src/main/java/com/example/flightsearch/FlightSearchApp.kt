@@ -33,6 +33,7 @@ fun FlightSearchApp(
         removeRouteFromFavorites =  { departCode, arriveCode -> appViewModel.removeRouteFromFav(departCode,arriveCode) },
         isSearchBarActive = appUiState.isSearchBarActive,
         onSearchBarActiveChange = { appViewModel.changeSearchBarActiveStatus(it)},
-        getroutesListFromAnAirport = { appViewModel.routesListFromAirport(it) }
+        getroutesListFromAnAirport = { appViewModel.routesListFromAirport(it) },
+        recentSearch = appUiState.recentSearch
     )
 }

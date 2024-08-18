@@ -36,9 +36,9 @@ fun FlightSearchBar(
     onSearchBarActiveChange: (Boolean) -> Unit,
     isActive: Boolean,
     response: List<Airport>,
-    onAirportCardClicked: (Airport) -> Unit,
     navController: NavHostController,
     isLoading: Boolean,
+    recentSearch: String?,
     modifier: Modifier
 ) {
     SearchBar(
@@ -102,7 +102,8 @@ fun FlightSearchBar(
                 }
                 onSearchBarActiveChange(false)
 
-            }
+            },
+            recentSearch = recentSearch
         )
     }
 }

@@ -51,7 +51,8 @@ fun HomeScreen(
     removeRouteFromFavorites: (String, String) -> Unit,
     isSearchBarActive: Boolean,
     onSearchBarActiveChange: (Boolean) -> Unit,
-    getroutesListFromAnAirport: (String?) -> (RoutesFromAirport)
+    getroutesListFromAnAirport: (String?) -> (RoutesFromAirport),
+    recentSearch: String?
 ) {
     val navController = rememberNavController()
 
@@ -77,7 +78,7 @@ fun HomeScreen(
                     response = response,
                     navController = navController,
                     isLoading = isLoading,
-                    onAirportCardClicked =  { }
+                    recentSearch = recentSearch
                 )
 
                 NavHost(
@@ -181,6 +182,7 @@ fun HomeScreenPreview() {
 
             ),
         onSearchBarActiveChange = {},
-        getroutesListFromAnAirport = {code->  RoutesFromAirport() }
+        getroutesListFromAnAirport = {code->  RoutesFromAirport() },
+        recentSearch = "Hyd"
     )
 }

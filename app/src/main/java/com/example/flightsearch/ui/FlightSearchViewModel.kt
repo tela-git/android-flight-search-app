@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.flightsearch.data.FlightSearchRepository
+import com.example.flightsearch.data.RecentSearchesRepository
 import com.example.flightsearch.data.Route
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -23,7 +24,8 @@ import kotlin.system.exitProcess
 
 @HiltViewModel
 class FlightSearchViewModel @Inject constructor(
-    private val flightSearchRepo: FlightSearchRepository
+    private val flightSearchRepo: FlightSearchRepository,
+    private val recentSearchesRepository: RecentSearchesRepository
 ) : ViewModel() {
     private val _uiState = MutableStateFlow(FlightSearchUiState())
     val uiState = _uiState.asStateFlow()
@@ -53,6 +55,7 @@ class FlightSearchViewModel @Inject constructor(
         }
         viewModelScope.launch {
             try {
+
                 if(changedString.isNotEmpty()) {
                     flightSearchRepo.getAirport(changedString).collect { airports ->
                         _uiState.update { state ->
@@ -71,6 +74,16 @@ class FlightSearchViewModel @Inject constructor(
                     )
                 }
             }
+            //saving recently searched string in preferences datastore
+            recentSearchesRepository.saveSearchedString(changedString)
+            recentSearchesRepository.recentSearch.collect  { string->
+                _uiState.update { state->
+                    state.copy(
+                        recentSearch = string
+                    )
+                }
+            }
+
         }
     }
 

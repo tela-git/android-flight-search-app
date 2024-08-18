@@ -10,7 +10,13 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import android.content.Context
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.PreferenceDataStoreFactory
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.preferencesDataStore
+import androidx.datastore.preferences.preferencesDataStoreFile
 import androidx.room.Room
+import com.example.flightsearch.data.RecentSearchesRepository
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -33,7 +39,6 @@ object HiltModule {
         }
     }
 
-
     @Provides
     @Singleton
     fun provideFlightSearchRepo(
@@ -43,5 +48,18 @@ object HiltModule {
             database.getAirportDao(),
             database.getRoutesDao()
         )
+    }
+
+    @Provides
+    @Singleton
+    fun provideDataStore(app: Application): DataStore<Preferences> {
+        return PreferenceDataStoreFactory.create {
+            app.preferencesDataStoreFile("recent_search")
+        }
+    }
+
+    @Provides
+    fun provideRecentSearchesRepo(dataStore: DataStore<Preferences>): RecentSearchesRepository {
+        return RecentSearchesRepository(dataStore)
     }
 }

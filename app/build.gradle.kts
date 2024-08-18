@@ -4,6 +4,8 @@ plugins {
 
     id("com.google.dagger.hilt.android")
     id("kotlin-kapt")
+
+    id("com.google.devtools.ksp")
 }
 
 android {
@@ -68,18 +70,21 @@ dependencies {
     // Room DB
     implementation(libs.androidx.room.runtime)
     annotationProcessor(libs.androidx.room.compiler)
-    implementation("androidx.room:room-ktx:2.6.1")
+    implementation(libs.androidx.room.ktx)
     kapt("androidx.room:room-compiler:2.6.1")
 
     //Hilt
-    implementation("com.google.dagger:hilt-android:2.49")
-    kapt("com.google.dagger:hilt-android-compiler:2.49")
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.android.compiler.v249)
     implementation(libs.androidx.hilt.navigation.compose)
     // When using Kotlin.
-    kapt("androidx.hilt:hilt-compiler:1.2.0")
+    kapt(libs.androidx.hilt.compiler)
 
     //Navigation
-    implementation("androidx.navigation:navigation-compose:2.7.7")
+    implementation(libs.androidx.navigation.compose)
+
+    //preferences DataStore
+    implementation(libs.androidx.datastore.preferences)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
